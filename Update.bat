@@ -8,7 +8,7 @@ python setup.py sdist
 :: Upload Source Distribution to PyPI (https://pypi.org/project/NMBON/)
 twine upload dist/*
 :: Move into directory
-cd src
+cd source
 :: Remove temp code 'egg'
 RMDIR /S /Q NMBON.egg-info
 :: Go up a directory
