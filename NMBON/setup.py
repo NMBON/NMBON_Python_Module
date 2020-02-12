@@ -6,11 +6,11 @@ setup(
     description = 'Boiler plate for NMBON development',
     author = 'Hunter Pearson',
     author_email = 'hunter.pearson@state.nm.us',
-    url = 'https://github.com/user/reponame',
-    
+    url = 'https://github.com/NMBON/nmbon_pip_module',
+    long_description = 'Test!',
     
     py_modules = ["nmbon"],
-    package_dir = {'': 'src'},
+    package_dir = {'': 'source'},
 
     install_requires=[
         'pyperclip'
