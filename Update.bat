@@ -1,4 +1,6 @@
+:: Update the version in python
 Python update_version.py
+:: Move into directory
 cd NMBON
 python setup.py sdist
 twine upload dist/*
