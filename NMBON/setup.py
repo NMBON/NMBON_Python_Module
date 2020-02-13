@@ -2,7 +2,7 @@
 
 setup(
     name = 'NMBON',
-    version = '0.0.31',
+    version = '0.0.32',
     description = 'Boiler plate module for NMBON development',
     author = 'Hunter Pearson',
     author_email = 'hunter.pearson@state.nm.us',

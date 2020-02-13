@@ -33,4 +33,4 @@ echo.
 echo.
 echo Update Complete
 echo.
-pause
+TIMEOUT /T 10

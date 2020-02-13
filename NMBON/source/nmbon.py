@@ -5,7 +5,9 @@ This is the NMBON Module used as a boiler plate for NMBON development.
 import csv
 import json
 import random
+import glob
 from datetime import date
+
 import extract_msg
 import pyperclip
 
@@ -135,3 +137,10 @@ def msg_body_to_list(location, file_name):
     output_list.append(msg.body)
     output_list.append(msg.htmlBody)
     return output_list
+
+def glob_to_list(search):
+    '''
+    OS file(s) -> Python List
+    Return all matching criteria in list form
+    '''
+    return glob.glob(search)
