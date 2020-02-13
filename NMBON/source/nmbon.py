@@ -6,6 +6,7 @@ import csv
 import json
 import random
 from datetime import date
+import extract_msg
 import pyperclip
 
 def date_to_string():
@@ -102,6 +103,35 @@ def generate_password(num_of_digits=8):
     password = password + '@NMBON'
     # Handle note being able to copy paste in repl.it
     try:
-        pyperclip.copy(password) 
+        pyperclip.copy(password)
     finally:
-        return password
+        pass
+    return password
+
+def msg_body_to_string(location, file_name):
+    '''
+    .MSG file -> Python String
+    Dump the body of the email into a string
+    '''
+    return extract_msg.Message(location + file_name).body
+
+def msg_html_body_to_string(location, file_name):
+    '''
+    .MSG file -> Python String
+    Dump the HTML body of the email into a string
+    '''
+    return extract_msg.Message(location + file_name).htmlBody
+
+def msg_body_to_list(location, file_name):
+    '''
+    .MSG file -> Python List
+    Add Sender, Date, Subject, Body, HTML_Body to a List
+    '''
+    msg = extract_msg.Message(location + file_name)
+    output_list = list()
+    output_list.append(msg.sender)
+    output_list.append(msg.date)
+    output_list.append(msg.subject)
+    output_list.append(msg.body)
+    output_list.append(msg.htmlBody)
+    return output_list

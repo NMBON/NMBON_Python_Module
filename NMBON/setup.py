@@ -2,7 +2,7 @@
 
 setup(
     name = 'NMBON',
-    version = '0.0.30',
+    version = '0.0.31',
     description = 'Boiler plate module for NMBON development',
     author = 'Hunter Pearson',
     author_email = 'hunter.pearson@state.nm.us',
@@ -12,6 +12,7 @@ setup(
     package_dir = {'': 'source'},
 
     install_requires=[
-        'pyperclip'
+        'pyperclip', # Used to Read + Write to OS clipboard
+        'extract-msg' # Used to Read Outlook .msg files
     ]
 )
