@@ -142,5 +142,6 @@ def glob_to_list(search):
     '''
     OS file(s) -> Python List
     Return all matching criteria in list form
+    EXAMPLE: '*.py'
     '''
     return glob.glob(search)
