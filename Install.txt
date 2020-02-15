@@ -1,0 +1,26 @@
+Install Visual Studio Code x64 (User)
+	Add to path
+	Register file types
+	Add windows shell intergration for files
+Add extensions:
+	Python - Microsoft
+	Dracula Official - Dracula Them
+	SQL Server (mssql) - Microsoft
+	SQLTools - Database tools.
+Remove from toolbar: 
+	SQL Server
+	SQLTools
+
+Install Git x64
+	Remove Explorerer intergration
+	Use Visual Studio Code as Git
+	(Don't change anythin else)
+
+Install Python (x64) (https://www.python.org/downloads/windows/) 
+	Add to path
+	Custom Install
+		Uncheck 'td/tk and IDLE'
+	Do not install for all users and ensure it installs into %appdata%
+
+git clone https://....
+pip install nmbon
