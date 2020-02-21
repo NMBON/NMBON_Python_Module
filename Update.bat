@@ -16,7 +16,6 @@ cd ..
 :: Remove the generated code
 RMDIR /S /Q dist
 
-
 :: Clear the screen
 cls
 echo Please wait 40 seconds for the updated version of NMBON to be available to pip

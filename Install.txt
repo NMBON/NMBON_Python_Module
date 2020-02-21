@@ -24,3 +24,4 @@ Install Python (x64) (https://www.python.org/downloads/windows/)
 
 git clone https://....
 pip install nmbon
+pip install twine

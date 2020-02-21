@@ -2,7 +2,7 @@
 
 setup(
     name = 'NMBON',
-    version = '0.0.33',
+    version = '0.0.36',
     description = 'Boiler plate module for NMBON development',
     author = 'Hunter Pearson',
     author_email = 'hunter.pearson@state.nm.us',
@@ -12,7 +12,8 @@ setup(
     package_dir = {'': 'source'},
 
     install_requires=[
-        'pyperclip', # Used to Read + Write to OS clipboard
         'extract-msg' # Used to Read Outlook .msg files
+        ,'beautifulsoup4' # Used to convert HTML -> text
+        ,'exchangelib' # Used to connect to EWS
     ]
 )
