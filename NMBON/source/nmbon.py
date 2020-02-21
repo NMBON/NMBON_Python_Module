@@ -1,15 +1,19 @@
 '''
 This is the NMBON Module used as a boiler plate for NMBON development.
 '''
+# Permit generic error handeling from Pylint
+# pylint: disable=W0703
+
 #import os
 import csv
 import json
 import random
 import glob
+import sys
 from datetime import date
-
+from bs4 import BeautifulSoup
+from exchangelib import Credentials, Account, HTMLBody, Message, Mailbox, FileAttachment
 import extract_msg
-import pyperclip
 
 def date_to_string():
     '''
@@ -102,13 +106,7 @@ def generate_password(num_of_digits=8):
     password = ''
     for _each in range(num_of_digits):
         password += str(random.randint(2, 9))
-    password = password + '@NMBON'
-    # Handle note being able to copy paste in repl.it
-    try:
-        pyperclip.copy(password)
-    finally:
-        pass
-    return password
+    return 'abc' + password + '@NMBON'
 
 def msg_body_to_string(location, file_name):
     '''
@@ -145,3 +143,84 @@ def glob_to_list(search):
     EXAMPLE: '*.py'
     '''
     return glob.glob(search)
+
+def ews_connect(email, password):
+    '''
+    Email credentials -> EWS Account Obj
+    Authenticate with the Exchange server for reading / sending emails
+    '''
+    try:
+        credentials = Credentials(email, password)
+        return Account(email, credentials=credentials, autodiscover=True)
+    except Exception as error_text:
+        print(f'[Error] Unable to connect to email server - {str(error_text)}')
+        sys.exit()
+
+def ews_read_folder(ews_account, subfolder=''):
+    '''
+    EWS Account Obj -> Python List of EWS Emails
+    '''
+    try:
+        location = ews_account.inbox
+        if subfolder != '':
+            location = ews_account.inbox / subfolder
+        return location.all().order_by('-datetime_received')
+    except Exception as error_text:
+        print(f'[Error] Unable to read email folder - {str(error_text)}')
+        sys.exit()
+
+def ews_read_emails(list_of_emails):
+    '''
+    Python List of EWS Emails -> Python List of email bodies
+    Converts each email from Obj to String
+    '''
+    output = list()
+    for email in list_of_emails:
+        output.append(str(HTMLBody(email.body)))
+    return output
+
+def remove_html(html_string):
+    '''
+    HTML String -> String
+    Removes all html and returns a clean string
+    '''
+    return BeautifulSoup(html_string, 'lxml').get_text()
+
+def ews_delete_emails_from_folder(ews_account, subfolder=''):
+    '''
+    Delete all the emails in a EWS folder
+    '''
+    try:
+        location = ews_account.inbox
+        if subfolder != '':
+            location = ews_account.inbox / subfolder
+        location.all().delete()
+    except Exception as error_text:
+        print(f'[Error] Unable to delete emails from folder - {str(error_text)}')
+        sys.exit()
+
+def ews_toggle_is_read(ews_account, subfolder='', isread=False):
+    '''
+    Mark as all emails in EWS folder as Read/Unread
+    '''
+    try:
+        location = ews_account.inbox
+        if subfolder != '':
+            location = ews_account.inbox / subfolder
+        for email in location.all().order_by('-datetime_received'):
+            email.is_read = isread
+            email.save(update_fields=['is_read'])
+    except Exception as error_text:
+        print(f'[Error] Unable to mark emails as read - {str(error_text)}')
+        sys.exit()
+
+# Prep email message
+#EMessage = Message(
+#    account=A,
+#    folder=A.inbox / 'Outbound',
+#    subject='PMP checking requirement',
+#    body='test',
+#    to_recipients=[Mailbox(email_address='hunter.pearson@state.nm.us')]
+#)
+## Send the Email
+#EMessage.send_and_save()
