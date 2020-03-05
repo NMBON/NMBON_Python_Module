@@ -248,22 +248,3 @@ def ews_send_email(ews_account, subject, body, recipient, attachments=None):
     except Exception as error_text:
         print(f'[Error] Unable to send email - {str(error_text)}')
         sys.exit()
-
-def files_from_folder(location, search):
-    '''
-    Glob -> Python List
-    Returns all filenames from a glob
-    '''
-    files = list()
-    for file in glob_to_list(location + search):
-        files.append(os.path.basename(file))
-    return files
-
-def files_into_dict(location, files):
-    '''
-    Folder/Files -> dict[filename]Content
-    '''
-    output = dict()
-    for file in files:
-        output[file] = file_to_binary(location, file)
-    return output
