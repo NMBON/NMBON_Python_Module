@@ -7,6 +7,7 @@ cd NMBON
 python setup.py sdist
 :: Upload Source Distribution to PyPI (https://pypi.org/project/NMBON/)
 twine upload dist/*
+TIMEOUT /T 5
 :: Move into directory
 cd source
 :: Remove temp code 'egg'

@@ -165,26 +165,22 @@ def ews_connect(email, password):
 
 def ews_read_folder(ews_account, subfolder=''):
     '''
-    EWS Account Obj -> Python List of EWS Emails
+    EWS Account Obj -> Python List of HTML Email bodies
     '''
     try:
         location = ews_account.inbox
         if subfolder != '':
             location = ews_account.inbox / subfolder
-        return location.all().order_by('-datetime_received')
+        folder = location.all().order_by('-datetime_received')
+
+        output = list()
+        for email in folder:
+            output.append(str(HTMLBody(email.body)))
+        return output
+
     except Exception as error_text:
         print(f'[Error] Unable to read email folder - {str(error_text)}')
         sys.exit()
-
-def ews_read_emails(list_of_emails):
-    '''
-    Python List of EWS Emails -> Python List of email bodies
-    Converts each email from Obj to String
-    '''
-    output = list()
-    for email in list_of_emails:
-        output.append(str(HTMLBody(email.body)))
-    return output
 
 def remove_html(html_string):
     '''
